@@ -14,5 +14,13 @@ public class Portfolio {
 	public void setPortfolioName(String portfolioName) {
 		this.portfolioName = portfolioName;
 	}
+	
+	public void addSecurity(String type) {
+
+		securityList.add(new Security(type));
+		Security security = securityList.get(securityList.size() - 1);
+		security.addTransaction(Math.random(), 200, 3, "Stock");
+
+	}
 
 }
