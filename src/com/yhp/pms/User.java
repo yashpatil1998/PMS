@@ -7,6 +7,46 @@ public class User {
 	private String userName;
 	private int userId;
 	private long netWorth;
+	
+	
+
+	@Override
+	public String toString() {
+		return "User [userName=" + userName + ", userId=" + userId
+				+ ", netWorth=" + netWorth + "]";
+	}
+
+	public User(String userName, int userId, long netWorth) {
+		this.userName = userName;
+		this.userId = userId;
+		this.netWorth = netWorth;
+	}
+	
+	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public long getNetWorth() {
+		return netWorth;
+	}
+
+	public void setNetWorth(long netWorth) {
+		this.netWorth = netWorth;
+	}
 
 	public void renamePortfolio(String oldName, String newName) {
 
@@ -18,11 +58,11 @@ public class User {
 	public void deletePortfolio(String pName) {
 		mapPortfolio.remove(pName);
 	}
-	
+
 	public void addPortfolio() {
 
 	}
-	
+
 	public void editUserDetails(Scanner scanner) {
 		System.out.println("Enter \n1 to edit UserName\n");
 		int choice = scanner.nextInt();
