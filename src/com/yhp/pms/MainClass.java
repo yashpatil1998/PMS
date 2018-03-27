@@ -20,7 +20,7 @@ public class MainClass {
 			System.out.println("2. Edit User Details");
 			System.out.println("3. See User Details");
 			System.out.println("0. Exit");
-			
+
 			choice = sc.nextInt();
 
 			switch (choice) {
@@ -29,6 +29,15 @@ public class MainClass {
 				uName = sc.next();
 				mapUser.put(uName, new User(uName, (int) Math.random(), 0));
 				System.out.println("New User Created ");
+				break;
+				
+			case 2:
+				System.out.println("Enter user name :");
+				uName = sc.next();
+				User user = mapUser.get(uName);
+				mapUser.remove(uName);
+				user.editUserDetails(sc);
+				mapUser.put(user.getUserName(), user);
 				break;
 			case 3:
 				System.out.println("Enter user name :");
