@@ -7,8 +7,6 @@ public class User {
 	private String userName;
 	private int userId;
 	private long netWorth;
-	
-	
 
 	@Override
 	public String toString() {
@@ -16,13 +14,19 @@ public class User {
 				+ ", netWorth=" + netWorth + "]";
 	}
 
+	public Map<String, Portfolio> getMapPortfolio() {
+		return mapPortfolio;
+	}
+
+	public void setMapPortfolio(Map<String, Portfolio> mapPortfolio) {
+		this.mapPortfolio = mapPortfolio;
+	}
+
 	public User(String userName, int userId, long netWorth) {
 		this.userName = userName;
 		this.userId = userId;
 		this.netWorth = netWorth;
 	}
-	
-	
 
 	public String getUserName() {
 		return userName;
@@ -59,7 +63,9 @@ public class User {
 		mapPortfolio.remove(pName);
 	}
 
-	public void addPortfolio() {
+	public void addPortfolio(String name) {
+
+		mapPortfolio.put(name, new Portfolio(name));
 
 	}
 
