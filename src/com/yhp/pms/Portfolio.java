@@ -15,12 +15,26 @@ public class Portfolio {
 		this.portfolioName = portfolioName;
 	}
 	
+
+	public Portfolio(String portfolioName) {
+		this.portfolioName = portfolioName;
+	}
+
+	@Override
+	public String toString() {
+		return "Portfolio [portfolioName=" + portfolioName + "]";
+	}
+
 	public void addSecurity(String type) {
 
 		securityList.add(new Security(type));
 		Security security = securityList.get(securityList.size() - 1);
-		security.addTransaction(Math.random(), 200, 3, "Stock");
+		security.addTransaction((long)Math.random(), 200, 3, "Stock");
 
+	}
+
+	public int calculateNetWorth() {
+		return 3;
 	}
 
 }
