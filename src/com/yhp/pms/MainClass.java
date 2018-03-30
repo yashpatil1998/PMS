@@ -13,13 +13,27 @@ public class MainClass {
 			System.out.println("Enter choice :");
 			System.out.println("1. Create new Security ");
 			System.out.println("2. Add new Transaction to existing Security");
+			System.out.println("3. Delete Security");
+			System.out.println("4. View Existing Security Details");
 
 			System.out.println("0. Exit Portfolio and go to User Operations");
 			pChoice = sc.nextInt();
 			switch (pChoice) {
 			case 1:
-				System.out.println("Stype of Security (Stock/Account)");
+				System.out.println("Enter type of Security (Stock/Account)");
 				String sType = sc.next();
+				activePortfolio.addSecurity(sType, sc);
+				System.out.println("New Security added");
+				break;
+
+			case 3:
+				activePortfolio.deleteSecurity(sc);
+				break;
+				
+			case 4:
+				System.out.println("Enter Security ID :");
+				int sId = sc.nextInt();
+				activePortfolio.viewSecurity(sId);
 				break;
 
 			default:
