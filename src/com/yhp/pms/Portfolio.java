@@ -14,23 +14,52 @@ public class Portfolio {
 	public void setPortfolioName(String portfolioName) {
 		this.portfolioName = portfolioName;
 	}
-	
 
 	public Portfolio(String portfolioName) {
 		this.portfolioName = portfolioName;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Portfolio [portfolioName=" + portfolioName + "]";
+		return "Portfolio [securityList=" + securityList + ", portfolioName="
+				+ portfolioName + "]";
 	}
 
-	public void addSecurity(String type) {
+	public void addSecurity(String type, Scanner sc) {
 
 		securityList.add(new Security(type));
 		Security security = securityList.get(securityList.size() - 1);
-		security.addTransaction((long)Math.random(), 200, 3, "Stock");
+		if (type == "Stock") {
+			System.out.println("Enter stock name (Symbol) :");
+			String sName = sc.next();
+			System.out.println("Enter quantity :");
+			int sQuant = sc.nextInt();
+			System.out.println("Enter amount");
+			int sAmount = sc.nextInt();
+			security.addTransaction(security.getTransactionList().size(),
+					sAmount, sQuant, type, sName, "");
+		} else {
+			System.out.println("Enter Bank name :");
+			String bName = sc.next();
+			System.out.println("Enter Account Name :");
+			String aName = sc.next();
+			System.out.println("Enter account balance :");
+			int aBalance = sc.nextInt();
+			security.addTransaction(security.getTransactionList().size(),
+					aBalance, 0, type, aName, bName);
+		}
 
+	}
+
+	public void deleteSecurity(Scanner sc) {
+			System.out.println("Enter security ID :");
+			int sId = sc.nextInt();
+			this.securityList.remove(sId);
+	}
+	
+	public void viewSecurity(int sId) {
+		System.out.println(this.securityList.get(sId));
 	}
 
 	public int calculateNetWorth() {
