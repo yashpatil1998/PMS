@@ -24,7 +24,7 @@ public class Security {
 
 	public void addTransaction(int id, int amount, int quantity, String type, String name,String bName) {
 		transactionList.add(new Transaction(id, amount, quantity));
-		if (type == "Stock") {
+		if (type.equalsIgnoreCase("Stock")) {
 			stockList.add(new Stock(this.stockList.size(), 150, name));
 			Account temp = null;
 			accountList.add(temp);
@@ -49,7 +49,7 @@ public class Security {
 	}
 
 	public void setRoi() {
-		if (type == "Stock") {
+		if (type.equalsIgnoreCase("Stock")) {
 			// set ROI according to formula
 		} else {
 			// ROI = constant for a Bank
