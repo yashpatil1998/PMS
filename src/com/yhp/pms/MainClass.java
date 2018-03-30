@@ -4,9 +4,35 @@ import java.util.*;
 
 public class MainClass {
 
+	public void openPortfolio(String pName, User activeUser, Scanner sc) {
+
+		int pChoice = 0;
+		Portfolio activePortfolio = activeUser.getMapPortfolio().get(pName);
+		do {
+			System.out.println(pName + " opened");
+			System.out.println("Enter choice :");
+			System.out.println("1. Create new Security ");
+			System.out.println("2. Add new Transaction to existing Security");
+
+			System.out.println("0. Exit Portfolio and go to User Operations");
+			pChoice = sc.nextInt();
+			switch (pChoice) {
+			case 1:
+				System.out.println("Stype of Security (Stock/Account)");
+				String sType = sc.next();
+				break;
+
+			default:
+				System.out.println("Exiting Active Portfolio...");
+			}
+		} while (pChoice != 0);
+
+	}
+
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
+		MainClass obj = new MainClass();
 		String uName, pName;
 		System.out.println("Welcome to PMS ");
 		System.out.println(UUID.randomUUID());
@@ -62,6 +88,7 @@ public class MainClass {
 						System.out.println("1. New Portfolio");
 						System.out.println("2. Rename Portfolio:");
 						System.out.println("3. See existing Portfolio details");
+						System.out.println("4. Open a Portfolio");
 
 						System.out.println("0. Logout");
 
@@ -99,9 +126,17 @@ public class MainClass {
 								System.out.println(activeUser.getMapPortfolio()
 										.get(pName));
 							break;
+						case 4:
+							System.out.println("Enter Portfolio Name:");
+							pName = sc.next();
+							if (activeUser.getMapPortfolio().containsKey(pName) == true) {
+								obj.openPortfolio(pName, activeUser, sc);
+								System.out.println("Active Portfolio Exited");
+							} else
+								System.out.println("Portfolio does not exist");
+							break;
 						default:
 							System.out.println("Logging Out ... ");
-							break;
 
 						}
 
@@ -111,7 +146,6 @@ public class MainClass {
 				break;
 			default:
 				System.out.println("Exiting ... ");
-				break;
 			}
 
 		} while (choice != 0);
