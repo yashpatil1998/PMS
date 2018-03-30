@@ -6,8 +6,8 @@ public class Transaction {
 	private int transactionAmount;
 	private int quantity;
 
-	public Transaction(long transationId, int transactionAmount, int quantity) {
-		this.transationId = transationId;
+	public Transaction(long id, int transactionAmount, int quantity) {
+		this.transationId = id;
 		this.transactionAmount = transactionAmount;
 		this.quantity = quantity;
 	}
@@ -34,6 +34,13 @@ public class Transaction {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public String toString() {
+		return "Transaction [transationId=" + transationId
+				+ ", transactionAmount=" + transactionAmount + ", quantity="
+				+ quantity + "]";
 	}
 
 }
