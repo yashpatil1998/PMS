@@ -10,13 +10,29 @@ public class Security {
 	private String type;
 	private int roi;
 
-	public void addTransaction(long id, int amount, int quantity, String type) {
+	public Security(String type) {
+		this.type = type;
+	}
+
+	public List<Transaction> getTransactionList() {
+		return transactionList;
+	}
+
+	public void setTransactionList(List<Transaction> transactionList) {
+		this.transactionList = transactionList;
+	}
+
+	public void addTransaction(int id, int amount, int quantity, String type, String name,String bName) {
 		transactionList.add(new Transaction(id, amount, quantity));
 		if (type == "Stock") {
-			stockList.add(new Stock(1, 150, "IBM"));
+			stockList.add(new Stock(this.stockList.size(), 150, name));
+			Account temp = null;
+			accountList.add(temp);
 
 		} else {
-			accountList.add(new Account("YHP", 2016120036, "SBI", 100));
+			accountList.add(new Account(name, this.accountList.size(), bName, amount));
+			Stock temp = null;
+			stockList.add(temp);
 		}
 	}
 
@@ -33,15 +49,18 @@ public class Security {
 	}
 
 	public void setRoi() {
-		if(type == "Stock") {
-			//set ROI according to formula
-		}
-		else {
-			//ROI = constant for a Bank
+		if (type == "Stock") {
+			// set ROI according to formula
+		} else {
+			// ROI = constant for a Bank
 		}
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Security [transactionList=" + transactionList + ", stockList="
+				+ stockList + ", accountList=" + accountList + ", type=" + type
+				+ ", roi=" + roi + "]";
+	}
 
 }
