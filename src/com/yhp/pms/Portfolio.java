@@ -30,7 +30,7 @@ public class Portfolio {
 
 		securityList.add(new Security(type));
 		Security security = securityList.get(securityList.size() - 1);
-		if (type == "Stock") {
+		if (type.equalsIgnoreCase("Stock")) {
 			System.out.println("Enter stock name (Symbol) :");
 			String sName = sc.next();
 			System.out.println("Enter quantity :");
