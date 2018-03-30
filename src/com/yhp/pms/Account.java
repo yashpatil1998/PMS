@@ -3,11 +3,11 @@ package com.yhp.pms;
 public class Account {
 
 	private String accountName;
-	private long accountId;
+	private int accountId;
 	private String bankName;
 	private int balance;
 
-	public Account(String accountName, long accountId, String bankName,
+	public Account(String accountName, int accountId, String bankName,
 			int balance) {
 		this.accountName = accountName;
 		this.accountId = accountId;
@@ -27,7 +27,7 @@ public class Account {
 		return accountId;
 	}
 
-	public void setAccountId(long accountId) {
+	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
 
@@ -45,6 +45,13 @@ public class Account {
 
 	public void setBalance(int balance) {
 		this.balance = balance;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [accountName=" + accountName + ", accountId="
+				+ accountId + ", bankName=" + bankName + ", balance=" + balance
+				+ "]";
 	}
 
 }
