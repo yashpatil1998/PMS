@@ -25,11 +25,37 @@ public class MainClass {
 				activePortfolio.addSecurity(sType, sc);
 				System.out.println("New Security added");
 				break;
-
+			case 2:
+				System.out.println("Enter security ID :");
+				int sID = sc.nextInt();
+				Security activeSecurity = activePortfolio.getSecurityList()
+						.get(sID);
+				String type = activeSecurity.getType();
+				if (type.equalsIgnoreCase("Stock")) {
+					String sName = activeSecurity.getStockList().get(sID).getStockName();
+					System.out.println("Enter quantity :");
+					int sQuant = sc.nextInt();
+					System.out.println("Enter amount");
+					int sAmount = sc.nextInt();
+					activeSecurity.addTransaction(activeSecurity
+							.getTransactionList().size(), sAmount, sQuant,
+							type, sName, "");
+				} else {
+					System.out.println("Enter Bank name :");
+					String bName = sc.next();
+					System.out.println("Enter Account Name :");
+					String aName = sc.next();
+					System.out.println("Enter account balance :");
+					int aBalance = sc.nextInt();
+					activeSecurity.addTransaction(activeSecurity
+							.getTransactionList().size(), aBalance, 0, type,
+							aName, bName);
+				}
+				break;
 			case 3:
 				activePortfolio.deleteSecurity(sc);
 				break;
-				
+
 			case 4:
 				System.out.println("Enter Security ID :");
 				int sId = sc.nextInt();
