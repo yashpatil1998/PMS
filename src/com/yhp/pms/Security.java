@@ -10,6 +10,11 @@ public class Security {
 	private String type;
 	private int roi;
 
+	
+	public List<Stock> getStockList() {
+		return stockList;
+	}
+
 	public Security(String type) {
 		this.type = type;
 	}
