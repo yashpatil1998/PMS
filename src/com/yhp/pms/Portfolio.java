@@ -1,11 +1,18 @@
 package com.yhp.pms;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Portfolio {
 
 	private List<Security> securityList = new ArrayList<Security>();
 	private String portfolioName;
+	
+	
+
+	public List<Security> getSecurityList() {
+		return securityList;
+	}
 
 	public String getPortfolioName() {
 		return portfolioName;
@@ -26,8 +33,8 @@ public class Portfolio {
 				+ portfolioName + "]";
 	}
 
-	public void addSecurity(String type, Scanner sc) {
-
+	public void addSecurity(String type, Scanner sc) throws IOException {
+		
 		securityList.add(new Security(type));
 		Security security = securityList.get(securityList.size() - 1);
 		if (type.equalsIgnoreCase("Stock")) {
@@ -35,8 +42,10 @@ public class Portfolio {
 			String sName = sc.next();
 			System.out.println("Enter quantity :");
 			int sQuant = sc.nextInt();
-			System.out.println("Enter amount");
-			int sAmount = sc.nextInt();
+			Stock stock = new Stock(security.getStockList().size(), 0, sName);
+			float sprice = stock.getCurrentPriceOpen(sc);
+			float sAmount = sprice * sQuant;
+			System.out.println("Total stock price is :"+sAmount);
 			security.addTransaction(security.getTransactionList().size(),
 					sAmount, sQuant, type, sName, "");
 		} else {
