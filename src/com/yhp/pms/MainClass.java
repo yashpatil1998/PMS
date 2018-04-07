@@ -1,12 +1,15 @@
 package com.yhp.pms;
 
+import java.io.IOException;
 import java.util.*;
 
 public class MainClass {
 
-	public void openPortfolio(String pName, User activeUser, Scanner sc) {
+	public void openPortfolio(String pName, User activeUser, Scanner sc)
+			throws IOException {
 
 		int pChoice = 0;
+		String stockSym;
 		Portfolio activePortfolio = activeUser.getMapPortfolio().get(pName);
 		do {
 			System.out.println(pName + " opened");
@@ -20,46 +23,42 @@ public class MainClass {
 			pChoice = sc.nextInt();
 			switch (pChoice) {
 			case 1:
-				System.out.println("Enter type of Security (Stock/Account)");
-				String sType = sc.next();
-				activePortfolio.addSecurity(sType, sc);
+				System.out.println("Following is the list of Stock Symbols and their corresponding Company names :");
+				activePortfolio.getStockSymbol();
+				System.out.println("Enter valid stock SYMBOL:");
+				stockSym = sc.next();
+				activePortfolio.addNewSecurity(stockSym, sc);
 				System.out.println("New Security added");
 				break;
 			case 2:
-				System.out.println("Enter security ID :");
-				int sID = sc.nextInt();
-				Security activeSecurity = activePortfolio.getSecurityList()
-						.get(sID);
-				String type = activeSecurity.getType();
-				if (type.equalsIgnoreCase("Stock")) {
-					String sName = activeSecurity.getStockList().get(sID).getStockName();
-					System.out.println("Enter quantity :");
-					int sQuant = sc.nextInt();
-					System.out.println("Enter amount");
-					int sAmount = sc.nextInt();
-					activeSecurity.addTransaction(activeSecurity
-							.getTransactionList().size(), sAmount, sQuant,
-							type, sName, "");
-				} else {
-					System.out.println("Enter Bank name :");
-					String bName = sc.next();
-					System.out.println("Enter Account Name :");
-					String aName = sc.next();
-					System.out.println("Enter account balance :");
-					int aBalance = sc.nextInt();
-					activeSecurity.addTransaction(activeSecurity
-							.getTransactionList().size(), aBalance, 0, type,
-							aName, bName);
-				}
+				System.out.println("Following are existing securities:");
+				activePortfolio.getExistingSecurities();
+				System.out.println("Enter Stock Symbol :");
+				stockSym = sc.next();
+				Stock activeSecurity = activePortfolio.getMapStock()
+						.get(stockSym);
+				System.out.println("Enter quantity of stock :");
+				int sQuant = sc.nextInt();
+				System.out.println("Enter total amount :");
+				float sAmt = sc.nextFloat();
+				System.out.println("Enter whether bought(1) or sold(-1)");
+				int bs = sc.nextInt();
+				activeSecurity.addTransaction(sAmt, sQuant, bs);
 				break;
 			case 3:
-				activePortfolio.deleteSecurity(sc);
+				System.out.println("Following are existing securities:");
+				activePortfolio.getExistingSecurities();
+				System.out.println("Enter valid stock SYMBOL:");
+				stockSym = sc.next();
+				activePortfolio.deleteSecurity(stockSym);
 				break;
 
 			case 4:
-				System.out.println("Enter Security ID :");
-				int sId = sc.nextInt();
-				activePortfolio.viewSecurity(sId);
+				System.out.println("Following are existing securities:");
+				activePortfolio.getExistingSecurities();
+				System.out.println("Enter Stock Symbol :");
+				stockSym = sc.next();
+				System.out.println(activePortfolio.getMapStock().get(stockSym).getTransactionList());
 				break;
 
 			default:
@@ -69,7 +68,7 @@ public class MainClass {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		Scanner sc = new Scanner(System.in);
 		MainClass obj = new MainClass();
@@ -138,7 +137,8 @@ public class MainClass {
 						case 1:
 							System.out.println("Enter portfolio name :");
 							pName = sc.next();
-							if (activeUser.getMapPortfolio().containsKey(pName) == true)
+							if (activeUser.getMapPortfolio()
+									.containsKey(pName) == true)
 								System.out.println("Portfolio already exists");
 							else {
 								activeUser.addPortfolio(pName);
@@ -149,8 +149,8 @@ public class MainClass {
 						case 2:
 							System.out.println("Enter Old Name:");
 							String oldName = sc.next();
-							if (activeUser.getMapPortfolio().containsKey(
-									oldName) == true) {
+							if (activeUser.getMapPortfolio()
+									.containsKey(oldName) == true) {
 								System.out.println("Enter new name:");
 								String newName = sc.next();
 								activeUser.renamePortfolio(oldName, newName);
@@ -162,14 +162,16 @@ public class MainClass {
 						case 3:
 							System.out.println("Enter portfolio name : ");
 							pName = sc.next();
-							if (activeUser.getMapPortfolio().containsKey(pName) == true)
+							if (activeUser.getMapPortfolio()
+									.containsKey(pName) == true)
 								System.out.println(activeUser.getMapPortfolio()
 										.get(pName));
 							break;
 						case 4:
 							System.out.println("Enter Portfolio Name:");
 							pName = sc.next();
-							if (activeUser.getMapPortfolio().containsKey(pName) == true) {
+							if (activeUser.getMapPortfolio()
+									.containsKey(pName) == true) {
 								obj.openPortfolio(pName, activeUser, sc);
 								System.out.println("Active Portfolio Exited");
 							} else
