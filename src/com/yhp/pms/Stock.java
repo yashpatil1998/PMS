@@ -12,10 +12,22 @@ public class Stock {
 	private float currentPriceClose;
 	private String stockName;
 
-	public Stock(int stockId, int currentPriceOpen, String stockName) {
-		this.stockId = stockId;
-		this.currentPriceOpen = currentPriceOpen;
+	private List<Transaction> transactionList = new ArrayList<Transaction>();
+
+	public Stock(String stockName) {
 		this.stockName = stockName;
+	}
+
+	public void addTransaction(float amount, int quantity, int bs) {
+
+		Transaction transaction = new Transaction(transactionList.size(),
+				amount, quantity, bs);
+		transactionList.add(transaction);
+
+	}
+
+	public List<Transaction> getTransactionList() {
+		return transactionList;
 	}
 
 	public int getStockId() {
@@ -26,40 +38,50 @@ public class Stock {
 		this.stockId = stockId;
 	}
 
-	public float getCurrentPriceOpen(Scanner sc) throws IOException {
+	
+
+	public float getCurrentPriceClose(Scanner sc, boolean currentP)
+			throws IOException {
 		String stockPriceOpen = "0.0000";
 		String stockPriceClose = "0.0000";
-//		String timeStamp = new SimpleDateFormat("yyyy-MM-dd")
-//				.format(Calendar.getInstance().getTime());
-		System.out.println("Enter year yyyy");
-		int y = sc.nextInt();
-		System.out.println("Enter month mm");
-		int m = sc.nextInt();
-		System.out.println("Enter day dd");
-		int d = sc.nextInt();
+		String timeStamp;
+		if (currentP == true)
+			timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar
+					.getInstance().getTime());
+		else {
+			System.out.println("Enter year yyyy");
+			int y = sc.nextInt();
+			System.out.println("Enter month mm");
+			String m = sc.next();
+			System.out.println("Enter day dd");
+			String d = sc.next();
+			timeStamp = y + m + d;
+		}
 		System.out.println("Enter Stock Symbol");
 		String stockSymbol = sc.next();
+		System.out.println("Connecting to AlphaVantage...");
 		String link = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
 				+ stockSymbol + "&outputsize=full&apikey=17HLSDZ8O8VT0GL0.json";
 		URL url = new URL(link);
 		URLConnection urlConn = url.openConnection();
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				urlConn.getInputStream()));
+		System.out.println("Connected to AlphaVantage");
 		String line1 = br.readLine();
 		int startOpen = 0;
 		int choice = 1;
 		switch (choice) {
 		case 1:
 			while (line1 != null) {
-				while (line1.contains(y + "-" + m + "-" + d) == true) {
+				while (line1.contains(timeStamp) == true) {
 
-					while (line1.contains("1. open") == false) {
+					while (line1.contains("4. close") == false) {
 						line1 = br.readLine();
 
-						if (line1.contains("1. open") == true) {
+						if (line1.contains("4. close") == true) {
 							startOpen = line1.indexOf(".",
 									line1.indexOf(".") + 1);
-							stockPriceOpen = line1.substring(startOpen - 2,
+							stockPriceClose = line1.substring(startOpen - 2,
 									startOpen + 5);
 							System.out.println("Check Open");
 							break;
@@ -71,10 +93,10 @@ public class Stock {
 			}
 			break;
 		}
-		System.out.println(stockPriceOpen);
-		System.out.println(stockPriceClose);
-		this.currentPriceOpen = Float.parseFloat(stockPriceOpen);
-		return currentPriceOpen;
+		System.out.println("Price of 1 Stock : " + stockPriceClose);
+		// System.out.println(stockPriceClose);
+		this.currentPriceClose = Float.parseFloat(stockPriceClose);
+		return currentPriceClose;
 	}
 
 	public void setCurrentPrice(int currentPrice) {
@@ -87,12 +109,6 @@ public class Stock {
 
 	public void setStockName(String stockName) {
 		this.stockName = stockName;
-	}
-
-	@Override
-	public String toString() {
-		return "Stock [stockId=" + stockId + ", currentPrice=" + currentPriceOpen
-				+ ", stockName=" + stockName + "]";
 	}
 
 }
