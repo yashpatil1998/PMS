@@ -8,9 +8,26 @@ import java.util.*;
 public class Stock {
 
 	private int stockId;
-	private float currentPriceOpen;
 	private float currentPriceClose;
 	private String stockName;
+	private int sQuant = 0;
+	
+	
+
+	@Override
+	public String toString() {
+		return "Stock [currentPriceClose=" + currentPriceClose + ", stockName="
+				+ stockName + ", sQuant=" + sQuant + ", transactionList="
+				+ transactionList + "]";
+	}
+
+	public int getsQuant() {
+		return sQuant;
+	}
+
+	public void setsQuant(int sQuant) {
+		this.sQuant += sQuant;
+	}
 
 	private List<Transaction> transactionList = new ArrayList<Transaction>();
 
@@ -40,9 +57,8 @@ public class Stock {
 
 	
 
-	public float getCurrentPriceClose(Scanner sc, boolean currentP)
+	public float getCurrentPriceClose(Scanner sc, boolean currentP, String sSym)
 			throws IOException {
-		String stockPriceOpen = "0.0000";
 		String stockPriceClose = "0.0000";
 		String timeStamp;
 		if (currentP == true)
@@ -55,10 +71,9 @@ public class Stock {
 			String m = sc.next();
 			System.out.println("Enter day dd");
 			String d = sc.next();
-			timeStamp = y + m + d;
+			timeStamp = y + "-"+ m +"-"+ d;
 		}
-		System.out.println("Enter Stock Symbol");
-		String stockSymbol = sc.next();
+		String stockSymbol = sSym;
 		System.out.println("Connecting to AlphaVantage...");
 		String link = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
 				+ stockSymbol + "&outputsize=full&apikey=17HLSDZ8O8VT0GL0.json";
@@ -100,7 +115,7 @@ public class Stock {
 	}
 
 	public void setCurrentPrice(int currentPrice) {
-		this.currentPriceOpen = currentPrice;
+		this.currentPriceClose = currentPrice;
 	}
 
 	public String getStockName() {
