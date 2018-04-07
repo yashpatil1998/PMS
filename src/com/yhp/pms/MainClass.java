@@ -39,6 +39,7 @@ public class MainClass {
 						.get(stockSym);
 				System.out.println("Enter quantity of stock :");
 				int sQuant = sc.nextInt();
+				activeSecurity.setsQuant(sQuant);
 				System.out.println("Enter total amount :");
 				float sAmt = sc.nextFloat();
 				System.out.println("Enter whether bought(1) or sold(-1)");
@@ -58,7 +59,7 @@ public class MainClass {
 				activePortfolio.getExistingSecurities();
 				System.out.println("Enter Stock Symbol :");
 				stockSym = sc.next();
-				System.out.println(activePortfolio.getMapStock().get(stockSym).getTransactionList());
+				System.out.println(activePortfolio.getMapStock().get(stockSym));
 				break;
 
 			default:
@@ -128,6 +129,7 @@ public class MainClass {
 						System.out.println("2. Rename Portfolio:");
 						System.out.println("3. See existing Portfolio details");
 						System.out.println("4. Open a Portfolio");
+						System.out.println("5. Calculate Net Worth");
 
 						System.out.println("0. Logout");
 
@@ -177,6 +179,15 @@ public class MainClass {
 							} else
 								System.out.println("Portfolio does not exist");
 							break;
+						case 5:
+							for(Portfolio aPort : activeUser.getMapPortfolio().values()) {
+								for(Stock aStock : aPort.getMapStock().values()) {
+									aPort.setNetWorth(aPort.getNetWorth() + aStock.getCurrentPriceClose(sc, false, aStock.getStockName()) * aStock.getsQuant());									
+								}
+								System.out.println("Net worth of " + aPort.getPortfolioName() + " portfolio is : " +aPort.getNetWorth());
+								activeUser.setNetWorth(activeUser.getNetWorth() + aPort.getNetWorth());
+							}
+							System.out.println("Net Worth of " + activeUser.getUserName() + " User is : " + activeUser.getNetWorth());
 						default:
 							System.out.println("Logging Out ... ");
 
