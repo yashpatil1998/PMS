@@ -6,13 +6,9 @@ public class User {
 	private Map<String, Portfolio> mapPortfolio = new LinkedHashMap<String, Portfolio>();
 	private String userName;
 	private int userId;
-	private long netWorth;
+	private float UnetWorth = 0.0f;
 
-	@Override
-	public String toString() {
-		return "User [userName=" + userName + ", userId=" + userId
-				+ ", netWorth=" + netWorth + "]";
-	}
+	
 
 	public Map<String, Portfolio> getMapPortfolio() {
 		return mapPortfolio;
@@ -22,10 +18,10 @@ public class User {
 		this.mapPortfolio = mapPortfolio;
 	}
 
-	public User(String userName, int userId, long netWorth) {
+	public User(String userName, int userId, float netWorth) {
 		this.userName = userName;
 		this.userId = userId;
-		this.netWorth = netWorth;
+		this.UnetWorth = netWorth;
 	}
 
 	public String getUserName() {
@@ -44,12 +40,12 @@ public class User {
 		this.userId = userId;
 	}
 
-	public long getNetWorth() {
-		return netWorth;
+	public float getNetWorth() {
+		return UnetWorth;
 	}
 
-	public void setNetWorth(long netWorth) {
-		this.netWorth = netWorth;
+	public void setNetWorth(float netWorth) {
+		this.UnetWorth = netWorth;
 	}
 
 	public void renamePortfolio(String oldName, String newName) {
