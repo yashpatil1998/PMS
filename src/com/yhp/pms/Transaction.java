@@ -3,13 +3,15 @@ package com.yhp.pms;
 public class Transaction {
 
 	private long transationId;
-	private int transactionAmount;
+	private float transactionAmount;
 	private int quantity;
+	private int buysell;
 
-	public Transaction(long id, int transactionAmount, int quantity) {
+	public Transaction(long id, float sAmount, int quantity, int buysell) {
 		this.transationId = id;
-		this.transactionAmount = transactionAmount;
+		this.transactionAmount = sAmount;
 		this.quantity = quantity;
+		this.buysell = buysell;
 	}
 
 	public long getTransationId() {
@@ -20,7 +22,7 @@ public class Transaction {
 		this.transationId = transationId;
 	}
 
-	public int getTransactionAmount() {
+	public float getTransactionAmount() {
 		return transactionAmount;
 	}
 
