@@ -1,0 +1,25 @@
+MS:Morgan Stanley
+MSFT:Microsoft
+RHHBY:Roche (Pharma)
+PFE:Pfizer (pharma)
+AMZN:Amazon
+AEP:American Electrical Power
+ABBOTINDIA:Abbot India 
+3MINDIA:3M India (Capital goods)
+BANKINDIA:Bank of India (Balance Sector)
+BATAINDIA:Bata India
+DLINKINDIA:D-Link
+TTM:Tata Motors
+DABUR:Dabur
+GILLETTE:Gillette
+WNS:WNS Ltd
+HAVELLS:Havells
+BABA:Alibaba
+CAJ:Cannon
+NESTLEIND:Nestle India
+PROVOGE:Provogue
+HMC:Honda Motos
+TM:Toyota Motors
+LPL:LG Display Ltd
+INFY:Infosys
+WIT:Wipro IT
