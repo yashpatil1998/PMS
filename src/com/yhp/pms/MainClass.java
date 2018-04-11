@@ -39,11 +39,11 @@ public class MainClass {
 						.get(stockSym);
 				System.out.println("Enter quantity of stock :");
 				int sQuant = sc.nextInt();
-				activeSecurity.setsQuant(sQuant);
 				System.out.println("Enter total amount :");
 				float sAmt = sc.nextFloat();
 				System.out.println("Enter whether bought(1) or sold(-1)");
 				int bs = sc.nextInt();
+				activeSecurity.setsQuant(sQuant,bs);
 				activeSecurity.addTransaction(sAmt, sQuant, bs);
 				break;
 			case 3:
@@ -62,7 +62,7 @@ public class MainClass {
 				System.out.println(activePortfolio.getMapStock().get(stockSym));
 				break;
 
-			default:
+			case 0:
 				System.out.println("Exiting Active Portfolio...");
 			}
 		} while (pChoice != 0);
@@ -130,6 +130,7 @@ public class MainClass {
 						System.out.println("3. See existing Portfolio details");
 						System.out.println("4. Open a Portfolio");
 						System.out.println("5. Calculate Net Worth");
+						System.out.println("6. Calculate Return of Investment");
 
 						System.out.println("0. Logout");
 
@@ -180,6 +181,7 @@ public class MainClass {
 								System.out.println("Portfolio does not exist");
 							break;
 						case 5:
+							System.out.println("Enter the date on which to calculate Net Worth");
 							for(Portfolio aPort : activeUser.getMapPortfolio().values()) {
 								for(Stock aStock : aPort.getMapStock().values()) {
 									aPort.setNetWorth(aPort.getNetWorth() + aStock.getCurrentPriceClose(sc, false, aStock.getStockName()) * aStock.getsQuant());									
@@ -188,7 +190,23 @@ public class MainClass {
 								activeUser.setNetWorth(activeUser.getNetWorth() + aPort.getNetWorth());
 							}
 							System.out.println("Net Worth of " + activeUser.getUserName() + " User is : " + activeUser.getNetWorth());
-						default:
+							break;
+						case 6:
+							System.out.println("Enter the date on which to calculate Return of Investment");
+							for(Portfolio aPort : activeUser.getMapPortfolio().values()) {
+								for(Stock aStock : aPort.getMapStock().values()) {
+									for(Transaction aT : aStock.getTransactionList()) {
+										aT.setNetInvestment();
+										aStock.setTotalInvestment();
+										float p = (aT.getNetInvestment() - aStock.getCurrentPriceClose(sc, false, aStock.getStockName()))*100/aStock.getTotalInvestment();
+										System.out.println(p);
+										aStock.setROI(p);
+									}
+									System.out.println("RoI of "+aStock.getStockName()+" is :"+aStock.getROI()+"%");
+								}
+							}
+							break;
+						case 0:
 							System.out.println("Logging Out ... ");
 
 						}
@@ -197,7 +215,7 @@ public class MainClass {
 				} while (userChoice != 0);
 				System.out.println("Logged out");
 				break;
-			default:
+			case 0:
 				System.out.println("Exiting ... ");
 			}
 

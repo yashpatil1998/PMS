@@ -11,7 +11,13 @@ public class Stock {
 	private float currentPriceClose;
 	private String stockName;
 	private int sQuant = 0;
+	private float ROI = 0.0f;
+	private int buysell = 1;
+	private float totalInvestment = 0.0f;
 	
+	
+	
+	private List<Transaction> transactionList = new ArrayList<Transaction>();
 	
 
 	@Override
@@ -20,16 +26,37 @@ public class Stock {
 				+ stockName + ", sQuant=" + sQuant + ", transactionList="
 				+ transactionList + "]";
 	}
+	
+
+	public float getTotalInvestment() {
+		return totalInvestment;
+	}
+
+
+	public void setTotalInvestment() {
+		for (Transaction t : transactionList) {
+			this.totalInvestment += t.getTransactionAmount() * this.buysell;
+		}
+	}
+
 
 	public int getsQuant() {
 		return sQuant;
 	}
 
-	public void setsQuant(int sQuant) {
-		this.sQuant += sQuant;
+	public float getROI() {
+		return ROI;
 	}
 
-	private List<Transaction> transactionList = new ArrayList<Transaction>();
+	public void setROI(float rOI) {
+		ROI = rOI;
+	}
+
+	public void setsQuant(int sQuant, int buysell) {
+		this.sQuant += sQuant * buysell;
+	}
+
+	
 
 	public Stock(String stockName) {
 		this.stockName = stockName;
