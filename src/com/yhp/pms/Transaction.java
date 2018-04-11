@@ -4,12 +4,13 @@ public class Transaction {
 
 	private long transationId;
 	private float transactionAmount;
-	private int quantity;
-	private int buysell;
+	private int quantity = 0;
+	private int buysell = 1;
 	
 	private float netInvestment = 0.0f;
 
 	public float getNetInvestment() {
+		this.setNetInvestment();
 		return netInvestment;
 	}
 	
@@ -17,16 +18,12 @@ public class Transaction {
 		return buysell;
 	}
 
-
-
 	public void setBuysell(int buysell) {
 		this.buysell = buysell;
 	}
-
-
-
+	
 	public void setNetInvestment() {
-		this.netInvestment += (this.buysell * this.transactionAmount);
+		this.netInvestment = (this.buysell * this.transactionAmount);
 	}
 
 	public void setTransactionAmount(float transactionAmount) {
@@ -36,7 +33,7 @@ public class Transaction {
 	public Transaction(long id, float sAmount, int quantity, int buysell) {
 		this.transationId = id;
 		this.transactionAmount = sAmount;
-		this.quantity = quantity;
+		this.quantity += this.buysell * quantity;
 		this.buysell = buysell;
 	}
 
@@ -50,10 +47,6 @@ public class Transaction {
 
 	public float getTransactionAmount() {
 		return transactionAmount;
-	}
-
-	public void setTransactionAmount(int transactionAmount) {
-		this.transactionAmount = transactionAmount;
 	}
 
 	public int getQuantity() {

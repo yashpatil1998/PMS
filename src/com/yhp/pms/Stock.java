@@ -29,13 +29,14 @@ public class Stock {
 	
 
 	public float getTotalInvestment() {
+		this.setTotalInvestment();
 		return totalInvestment;
 	}
 
 
 	public void setTotalInvestment() {
 		for (Transaction t : transactionList) {
-			this.totalInvestment += t.getTransactionAmount() * this.buysell;
+			this.totalInvestment += t.getNetInvestment();
 		}
 	}
 

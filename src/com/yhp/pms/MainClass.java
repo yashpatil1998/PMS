@@ -193,15 +193,17 @@ public class MainClass {
 							break;
 						case 6:
 							System.out.println("Enter the date on which to calculate Return of Investment");
+							
 							for(Portfolio aPort : activeUser.getMapPortfolio().values()) {
 								for(Stock aStock : aPort.getMapStock().values()) {
-									for(Transaction aT : aStock.getTransactionList()) {
-										aT.setNetInvestment();
-										aStock.setTotalInvestment();
-										float p = (aT.getNetInvestment() - aStock.getCurrentPriceClose(sc, false, aStock.getStockName()))*100/aStock.getTotalInvestment();
-										System.out.println(p);
-										aStock.setROI(p);
-									}
+									float tIn = aStock.getTotalInvestment();
+									System.out.println("Total investment in " + aStock.getStockName() + " : " + tIn);
+									float p = 0.0f;
+									float cP = aStock.getsQuant()*aStock.getCurrentPriceClose(sc, false, aStock.getStockName());
+									System.out.println("Market Price is :" + cP);
+									p = ((cP - tIn)*100/tIn);
+									System.out.println(p);
+									aStock.setROI(p);
 									System.out.println("RoI of "+aStock.getStockName()+" is :"+aStock.getROI()+"%");
 								}
 							}
